@@ -14,7 +14,15 @@ def welcome
     "Please type 1, 2, or 3 and press return."
     type = gets.chomp
   end
-  puts "Please enter a character to search for:"
-  char = gets.chomp
-  [options[type], char]
+  if options[type] == "characters"
+    puts "Please enter a character to search for:"
+    search_term = gets.chomp
+  elsif options[type] == "creators"
+    puts "Please enter a creator to search for:"
+    search_term = gets.chomp
+  else
+    puts "Please enter an event to search for:"
+    search_term = gets.chomp
+  end
+  [options[type], search_term]
 end
