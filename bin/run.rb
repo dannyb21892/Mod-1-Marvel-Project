@@ -1,14 +1,16 @@
 require_relative '../config/environment'
+require_relative '../lib/json_parsing'
 
 char = welcome
 url = get_api_URL(char)
-puts url
+#puts url
 
 response = RestClient.get(url)
-
 json = JSON.parse(response)
-binding.pry
-"hi"
+print_blurb(json)
+
+#binding.pry
+
 
 #test
 #dan's test!
