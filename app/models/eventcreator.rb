@@ -1,4 +1,4 @@
-class EventCreators < ActiveRecord::Base
+class EventCreator < ActiveRecord::Base
   belongs_to :event
   belongs_to :creator
 end

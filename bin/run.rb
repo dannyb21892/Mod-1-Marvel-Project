@@ -7,6 +7,7 @@ url = get_api_URL(user_input)
 
 response = RestClient.get(url)
 json = JSON.parse(response)
+binding.pry
 print_blurb(json)
 
 #binding.pry
