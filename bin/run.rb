@@ -1,8 +1,8 @@
 require_relative '../config/environment'
 require_relative '../lib/json_parsing'
 
-char = welcome
-url = get_api_URL(char)
+user_input = welcome
+url = get_api_URL(user_input)
 #puts url
 
 response = RestClient.get(url)

@@ -8,5 +8,3 @@ require_all 'app'
 # require_relative "../lib/CLI.rb"
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
-
-puts "I know what db is"
