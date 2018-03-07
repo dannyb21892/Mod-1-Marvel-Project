@@ -20,11 +20,13 @@ def seed_db(json, input)
   klass = inputhash[input[0]]
 
   results = json["data"]["results"][0]
+  relevant_results = ["id","title","name","fullName","comics","events","creators","series","characters","stories"]
+  results = results.select{|key, val| relevant_results.include?(key)}
 
   input_object = klass.new
   attributes = input_object.attributes
 
-  input_object.name = results["name"]
+  input_object.name = results[results.keys[1]]
   input_object.send(attributes.keys[2] + "=",results["id"])
   input_object.save
 
