@@ -1,4 +1,4 @@
-class CreatorCharacters < ActiveRecord::Base
+class CreatorCharacter < ActiveRecord::Base
   belongs_to :creator
   belongs_to :character
 end

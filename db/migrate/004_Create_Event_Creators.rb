@@ -1,6 +1,6 @@
-class CreateEventCreators < ActiveRecord::Migration[5.1]
+class CreateEventCreators < ActiveRecord::Migration[4.2]
   def change
-    create_table :eventcreators do |t|
+    create_table :event_creators do |t|
       t.integer :event_id
       t.integer :creator_id
     end
