@@ -12,4 +12,16 @@ def print_blurb(json)
   end
 end
 
-#binding.pry
+def seed_db(json, input)
+  inputhash = {"characters" => Character, "creators" => Creator, "events" => Event}
+  klass = inputhash[input[0]]
+
+  results = json["data"]["results"][0]
+
+  input_object = klass.new
+  attributes = input_object.attributes
+
+  input_object.name = results["name"]
+  input_object.send(attributes.keys[2] + "=",results["id"])
+  input_object.save
+end

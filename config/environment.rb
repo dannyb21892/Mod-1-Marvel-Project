@@ -8,3 +8,7 @@ require_all 'app'
 # require_relative "../lib/CLI.rb"
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
+
+Character.destroy_all
+Creator.destroy_all
+Event.destroy_all
