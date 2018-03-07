@@ -27,3 +27,6 @@ end
 binding.pry
 
 print_blurb(json)
+
+type_of_response = information_request(user_input)
+return_info(user_input, type_of_response)
