@@ -10,7 +10,7 @@ def welcome
   }
 
   puts "Welcome to the Marvel recommendation app.\n \n"
-  puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n"
+  puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
   type = gets.chomp
   puts `printf '\33c\e[3J'`
 
@@ -43,6 +43,7 @@ end
     while !options.keys.include?(type)
       puts "Please type 1, 2, 3 or 4 and press return.\n \n"
       type = gets.chomp
+      puts `printf '\33c\e[3J'`
     end
     if options[type]
       "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
