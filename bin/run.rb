@@ -29,7 +29,7 @@ if validate_json(json) #checks that the thing you searched exists
     else
       puts "#{secondary_input[1]} could not be found"
     end
-    
+
   else #not gonna cross reference stuff
     type_of_response = information_request(user_input)
     return_info(user_input, type_of_response)
