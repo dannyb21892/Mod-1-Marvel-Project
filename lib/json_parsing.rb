@@ -20,7 +20,7 @@ def seed_db(json, input)
 
   #-------Initial Object Construction-------
 
-  inputhash = {"characters" => Character, "creators" => Creator, "events" => Event}
+  inputhash = {"characters" => Character, "creators" => Creator, "events" => Event, "comics"=>Comic}
   klass = inputhash[input[0]]
 
   results = json["data"]["results"][0]
@@ -39,9 +39,9 @@ def seed_db(json, input)
 
   #--------Relationship construction-------
   relationship_hash = {
-    "characters" => {"events" => EventCharacter},
-    "events" => {"creators" => EventCreator, "characters" => EventCharacter},
-    "creators" => {"events" => EventCreator}
+    "characters" => {"events" => EventCharacter, "comics" => CharacterComic},
+    "events" => {"creators" => EventCreator, "characters" => EventCharacter, "events" => EventComic},
+    "creators" => {"events" => EventCreator, "comics" => CreatorComic}
   }
 
   results.each do |key, value|
@@ -67,6 +67,4 @@ def seed_db(json, input)
       end
     end
   end
-
-
 end

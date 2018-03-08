@@ -56,23 +56,26 @@ def information_request(user_input)
     puts "\n"
     puts "Please select the number of a question:"
     puts "1. What were the major Marvel Universe events that #{user_input[1]} participated in?"
+    puts "2. What were the issues that featured #{user_input[1]}?"
     choice = gets.chomp
-    choices = {"1" => "events"}
+    choices = {"1" => "events", "2" => "comics"}
     return choices[choice]
   elsif user_input[0] == "events"
     puts "\n"
     puts "Please select the number of a question:"
     puts "1. Which Marvel creators worked on #{user_input[1]}?"
     puts "2. Which Marvel characters participated in #{user_input[1]}?"
+    puts "3. What issues make up #{user_input[1]}?"
     choice = gets.chomp
-    choices = {"1" => "creators", "2" => "characters"}
+    choices = {"1" => "creators", "2" => "characters", "3" => "comics"}
     return choices[choice]
   elsif user_input[0]== "creators"
     puts "\n"
     puts "Please select the number of a question:"
     puts "1. Which Marvel events did #{user_input[1]} work on?"
+    puts "2. Which issues did #{user_input[1]} work on?"
     choice = gets.chomp
-    choices = {"1" => "events"}
+    choices = {"1" => "events", "2" => "comics"}
     return choices[choice]
   else
     puts "Invalid input."
@@ -81,14 +84,17 @@ end
 
 def return_info(user_input, type_of_response)
   user_input[0].class == Array ? cross_ref = 1 : cross_ref = 0
-  class_hash = {"characters" => Character, "creators" => Creator, "events" => Event}
+  class_hash = {"characters" => Character, "creators" => Creator, "events" => Event, "comics" => Comic}
 
   if cross_ref == 0 #singular input to search by
     relationship_hash = {
-      "characters" => {"events" => "#{user_input[1]} participated in the following events:"},
+      "characters" => {"events" => "#{user_input[1]} participated in the following events:",
+                      "comics" => "#{user_input[1]} was featured in the following issues:"},
       "events" => {"creators" => "#{user_input[1]} was worked on by the following creators:",
-      "characters" => "#{user_input[1]} featured the following characters:"},
-      "creators" => {"events" => "#{user_input[1]} worked on the following events:"}
+                  "comics" => "#{user_input[1]} is made up of the following issues:",
+                  "characters" => "#{user_input[1]} featured the following characters:"},
+      "creators" => {"events" => "#{user_input[1]} worked on the following events:",
+                    "comics" => "#{user_input[1]} worked on the following issues:"}
     }
     puts relationship_hash[user_input[0]][type_of_response]
     array = class_hash[type_of_response].all.map do |object|
@@ -114,11 +120,5 @@ def return_info(user_input, type_of_response)
       rescue
       end
     end
-
-
-
   end
-
-
-
 end

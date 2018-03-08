@@ -10,16 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 6) do
+ActiveRecord::Schema.define(version: 9) do
+
+  create_table "character_comics", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "comic_id"
+  end
 
   create_table "characters", force: :cascade do |t|
     t.string  "name"
     t.integer "char_id"
   end
 
-  create_table "creator_characters", force: :cascade do |t|
+  create_table "comics", force: :cascade do |t|
+    t.string  "name"
+    t.integer "comic_id"
+  end
+
+  create_table "creator_comics", force: :cascade do |t|
     t.integer "creator_id"
-    t.integer "character_id"
+    t.integer "comic_id"
   end
 
   create_table "creators", force: :cascade do |t|
@@ -30,6 +40,11 @@ ActiveRecord::Schema.define(version: 6) do
   create_table "event_characters", force: :cascade do |t|
     t.integer "event_id"
     t.integer "character_id"
+  end
+
+  create_table "event_comics", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "comic_id"
   end
 
   create_table "event_creators", force: :cascade do |t|
