@@ -10,49 +10,49 @@ def welcome
   }
 
   puts "Welcome to the Marvel recommendation app.\n \n"
-  puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
+  puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n"
   type = gets.chomp
   puts `printf '\33c\e[3J'`
 
-  while !options.keys.include?(type)
-    puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
-    type = gets.chomp
-  end
-  #binding.pry
-  "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
-  puts "Please enter a#{thingy} #{options[type][0..-2]} to search for:\n \n"
-  search_term = gets.chomp
-  puts `printf '\33c\e[3J'`
-  [options[type], search_term]
-end
-
-def cross_reference(first_input)
-  options = {"1" => "characters",
-    "2" => "creators",
-    "3" => "events",
-    "4" => false,
-    "Characters" => "characters",
-    "Creators" => "creators",
-    "Events" => "events",
-    "Just the first one is fine" => false
-  }
-  puts "Would you like to cross reference #{first_input[1]} with another type of Marvel Entity? \n \n"
-  puts "1: Characters\n \n2: Creators\n \n3: Events\n \n4: Just the first one is fine\n \n"
-  type = gets.chomp
-  puts `printf '\33c\e[3J'`
-  while !options.keys.include?(type)
-    puts "Please type 1, 2, 3 or 4 and press return.\n \n"
-    type = gets.chomp
-  end
-  if options[type]
+    while !options.keys.include?(type)
+      puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
+      type = gets.chomp
+    end
+    #binding.pry
     "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
-    puts "Please enter a#{thingy} #{options[type][0..-2]} to cross reference with #{first_input[1]}:\n \n"
+    puts "Please enter a#{thingy} #{options[type][0..-2]} to search for:\n \n"
     search_term = gets.chomp
     puts `printf '\33c\e[3J'`
-  else
-    search_term = nil
-  end
-  [options[type], search_term]
+    [options[type], search_term]
+end
+
+  def cross_reference(first_input)
+    options = {"1" => "characters",
+      "2" => "creators",
+      "3" => "events",
+      "4" => false,
+      "Characters" => "characters",
+      "Creators" => "creators",
+      "Events" => "events",
+      "Just the first one is fine" => false
+    }
+    puts "Would you like to cross reference #{first_input[1]} with another type of Marvel Entity? \n \n"
+    puts "1: Characters\n \n2: Creators\n \n3: Events\n \n4: Just the first one is fine\n \n"
+    type = gets.chomp
+    puts `printf '\33c\e[3J'`
+    while !options.keys.include?(type)
+      puts "Please type 1, 2, 3 or 4 and press return.\n \n"
+      type = gets.chomp
+    end
+    if options[type]
+      "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
+      puts "Please enter a#{thingy} #{options[type][0..-2]} to cross reference with #{first_input[1]}:\n \n"
+      search_term = gets.chomp
+      puts `printf '\33c\e[3J'`
+    else
+      search_term = nil
+    end
+    [options[type], search_term]
 end
 
 def information_request(user_input)
@@ -126,4 +126,13 @@ def return_info(user_input, type_of_response)
       end
     end
   end
+end
+
+def rerun
+  puts "Would you like to perform another search?"
+  puts "1. Yes"
+  puts "2. No"
+  new_search = gets.chomp
+  new_search == "1"
+  puts `printf '\33c\e[3J'`
 end
