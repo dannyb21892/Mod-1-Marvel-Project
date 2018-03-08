@@ -12,6 +12,10 @@ def print_blurb(json)
   end
 end
 
+def validate_json(json)
+  json["data"]["results"] == [] ? false : true
+end
+
 def seed_db(json, input)
 
   #-------Initial Object Construction-------
@@ -22,13 +26,16 @@ def seed_db(json, input)
   results = json["data"]["results"][0]
   relevant_results = ["id","title","name","fullName","comics","events","creators","series","characters","stories"]
   results = results.select{|key, val| relevant_results.include?(key)}
+  if klass.find_by name: results[results.keys[1]] #record already exists
+    input_object = klass.find_by name: results[results.keys[1]]
+  else #make new record
+    input_object = klass.new
+    attributes = input_object.attributes
 
-  input_object = klass.new
-  attributes = input_object.attributes
-
-  input_object.name = results[results.keys[1]]
-  input_object.send(attributes.keys[2] + "=",results["id"])
-  input_object.save
+    input_object.name = results[results.keys[1]]
+    input_object.send(attributes.keys[2] + "=",results["id"])
+    input_object.save
+  end
 
   #--------Relationship construction-------
   relationship_hash = {
@@ -41,12 +48,16 @@ def seed_db(json, input)
     if relationship_hash[input[0]].keys.include?(key)
       value["items"].each do |resource_hash|
         klass = inputhash[key]
-        new_obj = klass.new
-        new_obj.name = resource_hash["name"]
+        if klass.find_by name: resource_hash["name"]
+          new_obj = klass.find_by name: resource_hash["name"]
+        else
+          new_obj = klass.new
+          new_obj.name = resource_hash["name"]
 
-        attributes = new_obj.attributes
-        new_obj.send(attributes.keys[2] + "=",resource_hash["resourceURI"].split("/").last)
-        new_obj.save
+          attributes = new_obj.attributes
+          new_obj.send(attributes.keys[2] + "=",resource_hash["resourceURI"].split("/").last)
+          new_obj.save
+        end
 
         relationship_class = relationship_hash[input[0]][key]
         new_rel = relationship_class.new
@@ -57,5 +68,5 @@ def seed_db(json, input)
     end
   end
 
-  
+
 end
