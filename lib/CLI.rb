@@ -134,3 +134,10 @@ def return_info(user_input, type_of_response)
     end
   end
 end
+
+def rerun
+  puts "Would you like to perform another search? Y/N\n \n"
+  new_search = gets.chomp
+  puts printf `printf '\33c\e[3J'`
+  new_search.downcase == "y"
+end
