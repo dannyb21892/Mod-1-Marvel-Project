@@ -13,3 +13,9 @@ ActiveRecord::Base.logger = nil
 Character.destroy_all
 Creator.destroy_all
 Event.destroy_all
+Comic.destroy_all
+CharacterComic.destroy_all
+EventComic.destroy_all
+CreatorComic.destroy_all
+EventCharacter.destroy_all
+EventCreator.destroy_all

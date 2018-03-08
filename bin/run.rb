@@ -1,5 +1,7 @@
 require_relative '../config/environment'
 require_relative '../lib/json_parsing'
+require_relative '../lib/ASCII'
+
 
 user_input = welcome
 url = get_api_URL(user_input)
@@ -12,6 +14,14 @@ if validate_json(json) #checks that the thing you searched exists
   seed_db(json, user_input)
 
   print_blurb(json)
+  if user_input[0] == "characters"
+    path = get_path(json)
+    if path
+      img = MiniMagick::Image.open(path)
+      convert_to_ascii(img,5)
+      puts "\n"
+    end
+  end
 
   secondary_input = cross_reference(user_input)
 

@@ -1,6 +1,6 @@
 require 'pry'
 def welcome
-
+  puts `printf '\33c\e[3J'`
   options = {"1" => "characters",
     "2" => "creators",
     "3" => "events",
@@ -9,18 +9,20 @@ def welcome
     "Events" => "events"
   }
 
-  puts "Welcome to the Marvel recommendation app."
-  puts "Please choose which kind of object to search for: \n1: Characters\n2: Creators\n3: Events"
+  puts "Welcome to the Marvel recommendation app.\n \n"
+  puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
   type = gets.chomp
-  #binding.pry
+  puts `printf '\33c\e[3J'`
+
   while !options.keys.include?(type)
-    "Please type 1, 2, or 3 and press return."
+    puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
     type = gets.chomp
   end
   #binding.pry
   "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
-  puts "Please enter a#{thingy} #{options[type][0..-2]} to search for:"
+  puts "Please enter a#{thingy} #{options[type][0..-2]} to search for:\n \n"
   search_term = gets.chomp
+  puts `printf '\33c\e[3J'`
   [options[type], search_term]
 end
 
@@ -34,17 +36,19 @@ def cross_reference(first_input)
     "Events" => "events",
     "Just the first one is fine" => false
   }
-  puts "Would you like to cross reference #{first_input[1]} with another type of Marvel Entity?"
-  puts "1: Characters\n2: Creators\n3: Events\n4: Just the first one is fine"
+  puts "Would you like to cross reference #{first_input[1]} with another type of Marvel Entity? \n \n"
+  puts "1: Characters\n \n2: Creators\n \n3: Events\n \n4: Just the first one is fine\n \n"
   type = gets.chomp
+  puts `printf '\33c\e[3J'`
   while !options.keys.include?(type)
-    "Please type 1, 2, 3 or 4 and press return."
+    puts "Please type 1, 2, 3 or 4 and press return.\n \n"
     type = gets.chomp
   end
   if options[type]
     "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
-    puts "Please enter a#{thingy} #{options[type][0..-2]} to cross reference with #{first_input[1]}:"
+    puts "Please enter a#{thingy} #{options[type][0..-2]} to cross reference with #{first_input[1]}:\n \n"
     search_term = gets.chomp
+    puts `printf '\33c\e[3J'`
   else
     search_term = nil
   end
@@ -54,26 +58,26 @@ end
 def information_request(user_input)
   if user_input[0] == "characters"
     puts "\n"
-    puts "Please select the number of a question:"
-    puts "1. What were the major Marvel Universe events that #{user_input[1]} participated in?"
-    puts "2. What were the issues that featured #{user_input[1]}?"
+    puts "Please select the number of a question:\n \n"
+    puts "1. What were the major Marvel Universe events that #{user_input[1]} participated in?\n \n"
+    puts "2. What were the issues that featured #{user_input[1]}?\n \n"
     choice = gets.chomp
     choices = {"1" => "events", "2" => "comics"}
     return choices[choice]
   elsif user_input[0] == "events"
     puts "\n"
-    puts "Please select the number of a question:"
-    puts "1. Which Marvel creators worked on #{user_input[1]}?"
-    puts "2. Which Marvel characters participated in #{user_input[1]}?"
-    puts "3. What issues make up #{user_input[1]}?"
+    puts "Please select the number of a question:\n \n"
+    puts "1. Which Marvel creators worked on #{user_input[1]}?\n \n"
+    puts "2. Which Marvel characters participated in #{user_input[1]}?\n \n"
+    puts "3. What issues make up #{user_input[1]}?\n \n"
     choice = gets.chomp
     choices = {"1" => "creators", "2" => "characters", "3" => "comics"}
     return choices[choice]
   elsif user_input[0]== "creators"
     puts "\n"
-    puts "Please select the number of a question:"
-    puts "1. Which Marvel events did #{user_input[1]} work on?"
-    puts "2. Which issues did #{user_input[1]} work on?"
+    puts "Please select the number of a question:\n \n"
+    puts "1. Which Marvel events did #{user_input[1]} work on?\n \n"
+    puts "2. Which issues did #{user_input[1]} work on?\n \n"
     choice = gets.chomp
     choices = {"1" => "events", "2" => "comics"}
     return choices[choice]
@@ -88,24 +92,25 @@ def return_info(user_input, type_of_response)
 
   if cross_ref == 0 #singular input to search by
     relationship_hash = {
-      "characters" => {"events" => "#{user_input[1]} participated in the following events:",
-                      "comics" => "#{user_input[1]} was featured in the following issues:"},
-      "events" => {"creators" => "#{user_input[1]} was worked on by the following creators:",
-                  "comics" => "#{user_input[1]} is made up of the following issues:",
-                  "characters" => "#{user_input[1]} featured the following characters:"},
-      "creators" => {"events" => "#{user_input[1]} worked on the following events:",
-                    "comics" => "#{user_input[1]} worked on the following issues:"}
+      "characters" => {"events" => "#{user_input[1]} participated in the following events:\n \n",
+                      "comics" => "#{user_input[1]} was featured in the following issues:\n \n"},
+      "events" => {"creators" => "#{user_input[1]} was worked on by the following creators:\n \n",
+                  "comics" => "#{user_input[1]} is made up of the following issues:\n \n",
+                  "characters" => "#{user_input[1]} featured the following characters:\n \n"},
+      "creators" => {"events" => "#{user_input[1]} worked on the following events:\n \n",
+                    "comics" => "#{user_input[1]} worked on the following issues:\n \n"}
     }
+    puts `printf '\33c\e[3J'`
     puts relationship_hash[user_input[0]][type_of_response]
     array = class_hash[type_of_response].all.map do |object|
-      object.name
+      object.name + "\n \n"
     end
     puts array
 
   else #cross referencing two inputs
     a = class_hash[user_input[0][0]].find_by name: user_input[0][1] #first user object
     b = class_hash[user_input[1][0]].find_by name: user_input[1][1] #second user object
-    puts "#{a.name} and #{b.name} have the following in common:"
+    puts "#{a.name} and #{b.name} have the following in common:\n \n"
     class_hash.keys.each do |attribute|
       begin #using begin/rescue to check all class/attribute combos without throwing errors when a combo doesnt exist
         a.send(attribute)
@@ -114,8 +119,8 @@ def return_info(user_input, type_of_response)
           a.send(attribute).include?(object) && b.send(attribute).include?(object)
         end
         if commonalities != []
-          puts "#{attribute.capitalize}:"
-          commonalities.each_with_index{|common, i| puts "#{i+1}: #{common.name}"}
+          puts "#{attribute.capitalize}:\n \n"
+          commonalities.each_with_index{|common, i| puts "#{i+1}: #{common.name}\n \n"}
         end
       rescue
       end

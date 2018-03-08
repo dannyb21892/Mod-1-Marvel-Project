@@ -10,6 +10,7 @@ def print_blurb(json)
     puts "\n#{json["data"]["results"][0]["title"]}"
     puts json["data"]["results"][0]["description"]
   end
+  puts "\n"
 end
 
 def validate_json(json)
