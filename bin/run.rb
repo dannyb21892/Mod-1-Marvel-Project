@@ -52,3 +52,4 @@ while new_search
 end
 
 puts "Goodbye! \n \n"
+puts "Data provided by Marvel. © 2014 Marvel \n \n"
