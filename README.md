@@ -14,5 +14,8 @@ Marvel Developer API
 Dan Baamonde - API querying, object creation/relationships and ASCII art generation  
 Chris Jacobs - CLI interaction
 
+# Demo Video
+https://www.youtube.com/watch?v=J7JGIdbjYIM
+
 # License
 This project is licensed under the MIT License - see the LICENSE.md file for details
