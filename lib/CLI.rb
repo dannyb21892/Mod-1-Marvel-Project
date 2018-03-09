@@ -13,18 +13,18 @@ def welcome
   puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
   type = gets.chomp
   puts `printf '\33c\e[3J'`
-  type.capitalize!
+  type = type.split(" ").map{|word| word.capitalize}.join(" ")
   while !options.keys.include?(type)
     puts "Please choose which kind of object to search for:\n \n1: Characters\n \n2: Creators\n \n3: Events\n \n"
     type = gets.chomp
-    type.capitalize!
+    type = type.split(" ").map{|word| word.capitalize}.join(" ")
     puts `printf '\33c\e[3J'`
   end
   #binding.pry
   "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
   puts "Please enter a#{thingy} #{options[type][0..-2]} to search for:\n \n"
   search_term = gets.chomp
-  search_term.capitalize!
+  search_term = search_term.split(" ").map{|word| word.capitalize}.join(" ")
   puts `printf '\33c\e[3J'`
   [options[type], search_term]
 end
@@ -42,19 +42,19 @@ def cross_reference(first_input)
   puts "Would you like to cross reference #{first_input[1]} with another type of Marvel Entity? \n \n"
   puts "1: Characters\n \n2: Creators\n \n3: Events\n \n4: Just the first one is fine\n \n"
   type = gets.chomp
-  type.capitalize!
+  type = type.split(" ").map{|word| word.capitalize}.join(" ")
   puts `printf '\33c\e[3J'`
   while !options.keys.include?(type)
     puts "Please type 1, 2, 3 or 4 and press return.\n \n"
     type = gets.chomp
-    type.capitalize!
+    type = type.split(" ").map{|word| word.capitalize}.join(" ")
     puts `printf '\33c\e[3J'`
   end
   if options[type]
     "aeiou".split('').include?(options[type][0]) ? thingy = "n" : thingy = ""
     puts "Please enter a#{thingy} #{options[type][0..-2]} to cross reference with #{first_input[1]}:\n \n"
     search_term = gets.chomp
-    search_term.capitalize!
+    search_term = search_term.split(" ").map{|word| word.capitalize}.join(" ")
     puts `printf '\33c\e[3J'`
   else
     search_term = nil
